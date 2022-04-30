@@ -1,0 +1,53 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block title %}
+Gray Image and Sketch Convertor
+{% endblock %}
+
+{% block header %}
+
+<div>
+    <center>
+        <h3 >Upload your file here</h3>
+        <form method = "post" enctype="multipart/form-data"> 
+            {% csrf_token %} 
+            <div class="upload">
+                {{ form.original_img }} 
+            </div>
+
+            <button type="submit">Convert</button> 
+        </form> 
+    </center>
+</div>
+<hr>
+
+{% endblock %}
+{% block body %}
+
+<center><h2 style="margin-top: 10px; margin-bottom: 10px;">Click on Image to zoom</h2></center><br>
+
+{% for img in images %} 
+<div class="box">
+    <div>
+        <h3>Original</h3>
+        <a href="{% url 'original_img' img.id %}">
+            <img src="{{ img.original_img.url }}" class="list-img" alt="Your Image will come here">
+        </a>
+    </div>
+    <div>
+        <h3>Grayscale</h3>
+        <a href="{% url 'grayscale_img' img.id %}">
+            <img src="{{ img.grayscale_img.url }}" class="list-img" alt="Your Image will come here">
+        </a>
+    </div>
+    <div>
+        <h3>Sketch</h3>
+        <a href="{% url 'sketch_img' img.id %}">
+            <img src="{{ img.sketch_img.url }}" class="list-img" alt="Your Image will come here">
+        </a>
+    </div>
+</div>
+{% endfor %} 
+
+{% endblock %}

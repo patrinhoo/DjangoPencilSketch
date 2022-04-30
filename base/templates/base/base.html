@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <title>{% block title %}{% endblock %}</title>
+
+        <style>
+            html {
+                overflow: scroll;
+            }
+
+            body{
+                background-color: #ddd;
+                margin-left: 0px;
+                margin-right: 0px;
+                margin-top: 0px;
+                scroll-margin: 10px;
+            }
+            
+            h1{
+                margin-bottom: 0px;
+            }
+
+            button[type=submit]{
+                background-color: #aaa;
+                border: 1px solid #000;
+                border-radius: 5px;
+                padding: 5px;
+                width: 100px;
+            }
+            button[type=submit]:hover{
+                background-color: #bbb;
+            }
+
+            .header{
+                background-color: #69b953;
+                padding-bottom: 5px;
+                padding-top: 5px;
+            }
+
+            .upload-container{
+                width: 100%;
+                background-color: #69b953;
+                padding-bottom: 5px;
+                padding-top: 5px;
+            }
+
+            .images-container{
+                background-color: #aaa;
+                margin-left: auto;
+                margin-right: auto;
+                margin-bottom: 0px;
+                padding-top: 10px;
+                padding-bottom: 5px;
+                width: 100%;
+                max-width: 1000px;
+                border: 1px solid #fff;
+            }
+
+            img{
+                width: 100%;
+            }
+
+            .list-img:hover{
+                opacity: 0.5;
+            }
+
+            .box{
+                display: grid;
+                grid-auto-flow: column; 
+                grid-auto-columns: 1fr;
+                grid-column-gap: 10px;
+                border: 1px solid #000;
+                margin-left: 10px;
+                margin-right: 10px;
+                margin-top: 10px;
+                text-align: center;
+                padding-left: 10px;
+                padding-right: 10px;
+                padding-bottom: 10px;
+                padding-top: 10px;
+            }
+
+            .upload{
+                padding-bottom: 20px;
+            }
+
+            .icon{
+                font-size: 60px; 
+                color: #ddd;
+                text-decoration: none;
+            }
+           
+        </style>
+    </head>
+    <body>
+        <div class="header">
+            <hr>
+            <center><h1>Gray Image and Sketch Convertor</h1></center><br>
+            <hr>
+        </div>
+        <div class="upload-container">
+            {% block header %}{% endblock %}
+        </div>
+        <div class="images-container">
+            {% block body %}{% endblock %}
+        </div>
+    </body>
+</html>

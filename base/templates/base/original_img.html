@@ -1,0 +1,34 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block title %}
+Gray Image and Sketch Convertor
+{% endblock %}
+
+{% block header %}
+
+{% endblock %}
+
+{% block body %}
+
+<div style="display: flex; justify-content: space-between; margin-left: 20px; margin-right: 40px;">
+    <div>
+        <a href="{% url 'image_upload' %}" class="icon">&#8678;</a>
+    </div>
+    
+    <div>
+        <center><h2 style="margin-top: 20px; margin-bottom: 10px;">Original Image</h2></center><br>
+    </div>
+    
+    <div>
+        <a href="{{ image.original_img.url }}" class="icon" download>&#10515;</a>
+    </div>
+</div>
+
+<div class="box">
+    <div>
+        <img src="{{ image.original_img.url }}" class="single-image" alt="Your Image will come here">
+    </div>
+</div>
+
+{% endblock %}
