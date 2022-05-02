@@ -11,4 +11,7 @@ Project is created with:
 To run this project you need to install django:
 ```
 $ pip install django
+$ pip install numpy
+$ pip install cv2
+$ pip install PIL
 ```

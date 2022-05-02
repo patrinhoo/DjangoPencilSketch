@@ -1,4 +1,3 @@
-from multiprocessing import context
 from django.shortcuts import render
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import FormView
@@ -55,44 +54,6 @@ class MainView(FormView):
             grayscale_name), sketch_img='sketch/{}.jpeg'.format(sketch_name))
 
         return super(MainView, self).form_valid(form)
-
-
-# def home(request):
-
-#     if request.method == 'POST':
-#         form = ImageForm(request.POST, request.FILES)
-#         if form.is_valid():
-
-#             # Save Original Image and get ID
-#             add = form.save()
-#             i_id = add.id
-
-#             # From Id get original Image path for further conversion
-#             og_image = Images.objects.get(id=add.id)
-#             image_url = og_image.original_img
-
-#             # Opening image and applying convesion operation
-#             img = Image.open(image_url)
-#             grayscale_img = img.convert('L')
-#             grayscale_name = int(time.time())
-#             grayscale_img.save('grayscale/{}.jpeg'.format(grayscale_name))
-
-#             sketch_img = to_sketch(img)
-#             sketch_name = int(time.time())
-#             sketch_img.save('sketch/{}.jpeg'.format(sketch_name))
-
-#             # Updating all data
-#             Images.objects.filter(id=i_id).update(grayscale_img='grayscale/{}.jpeg'.format(
-#                 grayscale_name), sketch_img='sketch/{}.jpeg'.format(sketch_name))
-
-#     # To show Image List
-#     form = ImageForm()
-#     images = Images.objects.all().order_by('id').reverse()
-#     context = {
-#         'form': form,
-#         'images': images
-#     }
-#     return render(request, 'base/index.html', context)
 
 
 class OriginalImageDetail(DetailView):
