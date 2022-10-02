@@ -1,0 +1,1 @@
+web: gunicorn PencilSketch.wsgi --log-file -
