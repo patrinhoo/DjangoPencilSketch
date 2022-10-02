@@ -1,2 +1,7 @@
+libsm6
+libxrender1
+libfontconfig1
+libice6
 python-opencv
+python3-opencv
 libgl1
