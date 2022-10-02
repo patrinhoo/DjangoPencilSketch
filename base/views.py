@@ -1,10 +1,12 @@
+from io import BytesIO
+
 from django.shortcuts import render
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import FormView
-from django.views.generic.base import View
 from django.urls import reverse_lazy
+from django.core.files.base import ContentFile
 
-from .models import Images
+from .models import Images, OriginalImage
 from .forms import ImageForm
 
 from .image_convert import to_sketch
@@ -20,7 +22,7 @@ class MainView(FormView):
     success_url = reverse_lazy('image_upload')
 
     def get(self, request, *args, **kwargs):
-        images = Images.objects.all().order_by('id').reverse()
+        images = Images.objects.all().order_by('-id')[:10]
         form = ImageForm()
 
         context = {
@@ -31,33 +33,38 @@ class MainView(FormView):
         return render(request, self.template_name, context)
 
     def form_valid(self, form):
-        # Save Original Image and get ID
+        # Save Original Image
         add = form.save()
-        i_id = add.id
 
-        # From Id get original Image path for further conversion
-        og_image = Images.objects.get(id=add.id)
-        image_url = og_image.original_img
+        # Get original Image path for further conversion
+        og_image = OriginalImage.objects.get(id=add.id)
+        image_url = og_image.image
 
-        # Opening image and applying convesion operation
+        # Opening image and applying convesion operations
         img = Image.open(image_url)
         grayscale_img = img.convert('L')
-        grayscale_name = int(time.time())
-        grayscale_img.save('grayscale/{}.jpeg'.format(grayscale_name))
-
         sketch_img = to_sketch(img)
-        sketch_name = int(time.time())
-        sketch_img.save('sketch/{}.jpeg'.format(sketch_name))
 
-        # Updating all data
-        Images.objects.filter(id=i_id).update(grayscale_img='grayscale/{}.jpeg'.format(
-            grayscale_name), sketch_img='sketch/{}.jpeg'.format(sketch_name))
+        # Save images as files
+        gray_img_io = BytesIO()
+        grayscale_img.save(gray_img_io, format='JPEG', quality=100)
+        gray_img_content = ContentFile(
+            gray_img_io.getvalue(), str(int(time.time()))+'.jpg')
+
+        sketch_img_io = BytesIO()
+        sketch_img.save(sketch_img_io, format='JPEG', quality=100)
+        sketch_img_content = ContentFile(
+            sketch_img_io.getvalue(), str(int(time.time()))+'.jpg')
+
+        # Create Images object
+        Images.objects.create(
+            original_img=og_image, grayscale_img=gray_img_content, sketch_img=sketch_img_content)
 
         return super(MainView, self).form_valid(form)
 
 
 class OriginalImageDetail(DetailView):
-    model = Images
+    model = OriginalImage
     context_object_name = 'image'
     template_name = 'base/original_img.html'
 

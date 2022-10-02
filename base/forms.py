@@ -1,8 +1,8 @@
 from django import forms
-from .models import Images
+from .models import OriginalImage, Images
 
 
 class ImageForm(forms.ModelForm):
     class Meta:
-        model = Images
-        fields = ['original_img']
+        model = OriginalImage
+        fields = '__all__'
