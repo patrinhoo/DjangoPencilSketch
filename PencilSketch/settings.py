@@ -123,3 +123,10 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+
+AWS_ACCESS_KEY_ID = 'AKIAVX75GFSGMQY4LIGP'
+AWS_SECRET_ACCESS_KEY = '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'
+AWS_STORAGE_BUCKET_NAME = 'pencilsketch-bucket'
+AWS_QUERYSTRING_AUTH = False

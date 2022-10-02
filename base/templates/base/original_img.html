@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block title %}
-Gray Image and Sketch Convertor
+Original Image
 {% endblock %}
 
 {% block header %}
@@ -21,13 +21,13 @@ Gray Image and Sketch Convertor
     </div>
     
     <div>
-        <a href="{{ image.original_img.url }}" class="icon" download>&#10515;</a>
+        <a href="{{ image.image.url }}" class="icon" download>&#10515;</a>
     </div>
 </div>
 
 <div class="box">
     <div>
-        <img src="{{ image.original_img.url }}" class="single-image" alt="Your Image will come here">
+        <img src="{{ image.image.url }}" class="single-image" alt="Your Image will come here">
     </div>
 </div>
 

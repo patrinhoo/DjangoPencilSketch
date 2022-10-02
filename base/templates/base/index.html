@@ -13,7 +13,7 @@ Gray Image and Sketch Convertor
         <form method = "post" enctype="multipart/form-data"> 
             {% csrf_token %} 
             <div class="upload">
-                {{ form.original_img }} 
+                {{ form.image }} 
             </div>
 
             <button type="submit">Convert</button> 
@@ -31,8 +31,8 @@ Gray Image and Sketch Convertor
 <div class="box">
     <div>
         <h3>Original</h3>
-        <a href="{% url 'original_img' img.id %}">
-            <img src="{{ img.original_img.url }}" class="list-img" alt="Your Image will come here">
+        <a href="{% url 'original_img' img.original_img.id %}">
+            <img src="{{ img.original_img.image.url }}" class="list-img" alt="Your Image will come here">
         </a>
     </div>
     <div>
