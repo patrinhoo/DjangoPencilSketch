@@ -20,7 +20,7 @@ Sketch Image
     </div>
     
     <div>
-        <a href="{{ image.sketch_img.url }}" class="icon" download>&#10515;</a>
+        <a href="{% url 'download_sketch' image.id %}" class="icon">&#10515;</a>
     </div>
 </div>
 

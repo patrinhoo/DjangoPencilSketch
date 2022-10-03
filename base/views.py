@@ -5,6 +5,7 @@ from django.views.generic.detail import DetailView
 from django.views.generic.edit import FormView
 from django.urls import reverse_lazy
 from django.core.files.base import ContentFile
+from django.http import FileResponse
 
 from .models import Images, OriginalImage
 from .forms import ImageForm
@@ -16,6 +17,21 @@ import time
 
 
 # Create your views here.
+def download_original(request, pk):
+    image = OriginalImage.objects.get(id=pk)
+    return FileResponse(image.image.open(), as_attachment=True, filename="original.jpg")
+
+
+def download_gray(request, pk):
+    image = Images.objects.get(id=pk)
+    return FileResponse(image.grayscale_img.open(), as_attachment=True, filename="gray.jpg")
+
+
+def download_sketch(request, pk):
+    image = Images.objects.get(id=pk)
+    return FileResponse(image.sketch_img.open(), as_attachment=True, filename="sketch.jpg")
+
+
 class MainView(FormView):
     form_class = ImageForm
     template_name = 'base/index.html'

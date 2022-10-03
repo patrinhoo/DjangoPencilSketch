@@ -21,7 +21,7 @@ Original Image
     </div>
     
     <div>
-        <a href="{{ image.image.url }}" class="icon" download>&#10515;</a>
+        <a href="{% url 'download_original' image.id %}" class="icon">&#10515;</a>
     </div>
 </div>
 
