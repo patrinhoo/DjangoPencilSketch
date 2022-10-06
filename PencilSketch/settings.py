@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 
+import dj_database_url
 from pathlib import Path
 import os
 
@@ -85,6 +86,8 @@ DATABASES = {
     }
 }
 
+db_from_env = dj_database_url.config(conn_max_age=600)
+DATABASES['default'].update(db_from_env)
 
 # Password validation
 # https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators
@@ -129,9 +132,16 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 
-AWS_ACCESS_KEY_ID = 'AKIAVX75GFSGMQY4LIGP'
-AWS_SECRET_ACCESS_KEY = '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'
-AWS_STORAGE_BUCKET_NAME = 'pencilsketch-bucket'
+# S3 BUCKETS CONFIG
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+
+AWS_ACCESS_KEY_ID = os.getenv('AWS_ACCESS_KEY_ID', 'Optional default value')
+AWS_SECRET_ACCESS_KEY = os.getenv(
+    'AWS_SECRET_ACCESS_KEY', 'Optional default value')
+AWS_STORAGE_BUCKET_NAME = os.getenv(
+    'AWS_STORAGE_BUCKET_NAME', 'Optional default value')
 AWS_QUERYSTRING_AUTH = False
+
+AWS_S3_FILE_OVERWRITE = False
