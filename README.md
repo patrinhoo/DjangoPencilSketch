@@ -1,5 +1,6 @@
 ## Django Pencil Sketch
 This is a simple Web App to convert images to grayscale and sketch images
+You can test this app at: https://graysketch.herokuapp.com/
 
 ## Technologies
 Project is created with:
